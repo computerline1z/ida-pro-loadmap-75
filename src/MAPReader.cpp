@@ -33,6 +33,7 @@ const char MSVC_HDR_START2[]       = "Address         Publics by Value          
 const char MSVC_HDR_START3[]       = "Address         Publics by Value              Rva+Base               Lib:Object";
 const char BCCL_HDR_NAME_START[]   = "Address         Publics by Name";
 const char BCCL_HDR_VALUE_START[]  = "Address         Publics by Value";
+const char BCCL_HDR_VALUE_START2[] = "Address Publics by Value _ RVA+Base";
 const char WATCOM_MEMMAP_START[]   = "Address        Symbol";
 const char WATCOM_MEMMAP_SKIP[]   = "=======        ======";
 const char WATCOM_MEMMAP_COMMENT[] = "Module: ";
@@ -195,7 +196,8 @@ MapFile::SectionType MapFile::recognizeSectionStart(const char *pLine, size_t li
         return MapFile::MSVC_MAP;
     if (strncasecmp(pLine, BCCL_HDR_NAME_START, lineLen) == 0)
         return MapFile::BCCL_NAM_MAP;
-    if (strncasecmp(pLine, BCCL_HDR_VALUE_START, lineLen) == 0)
+    if (strncasecmp(pLine, BCCL_HDR_VALUE_START, lineLen) == 0
+        || strncasecmp(pLine, BCCL_HDR_VALUE_START2, lineLen) == 0)
         return MapFile::BCCL_VAL_MAP;
     if (strncasecmp(pLine, WATCOM_MEMMAP_START, lineLen) == 0)
         return MapFile::WATCOM_MAP;
